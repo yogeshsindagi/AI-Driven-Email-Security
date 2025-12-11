@@ -96,12 +96,25 @@ def detect_spam(input_sms):
 def detect_phishing_url(url):
     if not url.strip():
         return "❗ Please enter a valid URL."
-    try:
+     try:
+        # Ensure model is on CPU
+        phishing_model.to("cpu")
+
+        # Tokenize and move inputs to CPU
         inputs = phishing_tokenizer(url, return_tensors="pt", truncation=True, padding=True, max_length=128)
+        inputs = {k: v.to("cpu") for k, v in inputs.items()}
+
+        # Forward pass
         outputs = phishing_model(**inputs)
         prediction = torch.argmax(outputs.logits, dim=-1)
-        return "🚩 Phishing URL" if prediction.item() == 1 else "✅ Legitimate URL"
+        result = "🚩 Phishing URL" if prediction.item() == 1 else "✅ Legitimate URL"
+
+        # Debug print
+        print(f"[DEBUG] URL: {url} | Prediction: {result}")
+        return result
+
     except Exception as e:
+        print(f"[DEBUG] Phishing error: {e}")
         return f"❗ Error occurred: {e}"
 
 
@@ -114,7 +127,7 @@ def summarize_email(input_sms):
         return "❗ Please enter a valid email message before generating the summary."
 
     try:
-        summary = summarizer(input_sms, max_length=200, min_length=40, do_sample=False)
+        summary = summarizer(input_sms, min_length=40, do_sample=False)
         return summary[0]["summary_text"]
     except Exception as e:
         return f"❗ Error generating summary: {e}"
