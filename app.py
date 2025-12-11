@@ -100,7 +100,7 @@ def detect_phishing_url(url):
 
 
 # Initialize summarizer model
-summarizer = pipeline("summarization", model="t5-base", tokenizer="t5-base", framework="pt")
+summarizer = pipeline("summarization", model="t5-small", tokenizer="t5-small", framework="pt", device=-1)
 
 # Email Summarization Function
 def summarize_email(input_sms):
