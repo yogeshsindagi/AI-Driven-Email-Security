@@ -14,7 +14,7 @@ import os
 ps = PorterStemmer()
 
 # Download required NLTK data
-resources = ["punkt_tab", "stopwords"]
+resources = ["punkt", "stopwords"]
 for res in resources:
     try:
         if res == "punkt_tab":
