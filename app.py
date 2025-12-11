@@ -96,7 +96,7 @@ def detect_spam(input_sms):
 def detect_phishing_url(url):
     if not url.strip():
         return "❗ Please enter a valid URL."
-     try:
+    try:
         # Ensure model is on CPU
         phishing_model.to("cpu")
 
