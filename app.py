@@ -7,6 +7,8 @@ from nltk.stem.porter import PorterStemmer
 from transformers import pipeline
 from transformers import BertTokenizer, BertForSequenceClassification
 import torch
+import os
+
 
 # Initialize the PorterStemmer
 ps = PorterStemmer()
@@ -41,19 +43,23 @@ def transform_text(text):
 
     return " ".join(y)
 
+MODEL_DIR = "models"
 
 # Load Priority Model and Vectorizer
-tfidf = pickle.load(open("priority_vectorizer.pkl", "rb"))  # single vectorizer
-model = pickle.load(open("priority_model.pkl", "rb"))  # single model
+tfidf = pickle.load(open(os.path.join(MODEL_DIR, "priority_vectorizer.pkl"), "rb"))
+model = pickle.load(open(os.path.join(MODEL_DIR, "priority_model.pkl"), "rb"))
 
 # Load Spam Model and Vectorizer
-spam_tfidf = pickle.load(open("spam_vectorizer.pkl", "rb"))  # Spam-specific vectorizer
-spam_model = pickle.load(open("spam_model.pkl", "rb"))  # Spam-specific model
+spam_tfidf = pickle.load(open(os.path.join(MODEL_DIR, "spam_vectorizer.pkl"), "rb"))
+spam_model = pickle.load(open(os.path.join(MODEL_DIR, "spam_model.pkl"), "rb"))
 
 # Load Phishing URL Detection Model
-model_dir = r"C:\Users\Yogesh\PycharmProjects\EmailSec\phishing"  # Path to your model folder
-phishing_model = BertForSequenceClassification.from_pretrained(model_dir, use_safetensors=True)
-phishing_tokenizer = BertTokenizer.from_pretrained(model_dir)
+PHISHING_MODEL_DIR = "phishing"
+
+phishing_model = BertForSequenceClassification.from_pretrained(
+    PHISHING_MODEL_DIR, use_safetensors=True
+)
+phishing_tokenizer = BertTokenizer.from_pretrained(PHISHING_MODEL_DIR)
 
 
 # Helper functions
