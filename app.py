@@ -14,10 +14,13 @@ import os
 ps = PorterStemmer()
 
 # Download required NLTK data
-resources = ["punkt", "stopwords"]
+resources = ["punkt_tab", "stopwords"]
 for res in resources:
     try:
-        nltk.data.find(f"tokenizers/{res}" if res=="punkt" else f"corpora/{res}")
+        if res == "punkt_tab":
+            nltk.data.find(f"tokenizers/{res}/english")
+        else:
+            nltk.data.find(f"corpora/{res}")
     except LookupError:
         nltk.download(res)
 
