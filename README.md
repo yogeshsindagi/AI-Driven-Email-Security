@@ -20,9 +20,9 @@ User inputs an email and optional URL.
 
 ML models process the input:
 
--BERT model predicts if the URL is phishing.
--TF-IDF + ML model predicts if the email is spam.
--TF-IDF + ML model classifies email priority.
+- BERT model predicts if the URL is phishing.
+- TF-IDF + ML model predicts if the email is spam.
+- TF-IDF + ML model classifies email priority.
 
 T5 generates a concise summary of the email.
 
