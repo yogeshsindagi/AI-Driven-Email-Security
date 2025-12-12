@@ -1,8 +1,9 @@
 import streamlit as st
 import pickle
 import string
-from nltk.corpus import stopwords
 import nltk
+from nltk.corpus import stopwords
+from nltk.tokenize import wordpunct_tokenize
 from nltk.stem.porter import PorterStemmer
 from transformers import pipeline
 from transformers import BertTokenizer, BertForSequenceClassification
@@ -14,21 +15,15 @@ import os
 ps = PorterStemmer()
 
 # Download required NLTK data
-resources = ["punkt", "stopwords"]
-for res in resources:
-    try:
-        if res == "punkt_tab":
-            nltk.data.find(f"tokenizers/{res}/english")
-        else:
-            nltk.data.find(f"corpora/{res}")
-    except LookupError:
-        nltk.download(res)
+try:
+    nltk.data.find("corpora/stopwords")
+except LookupError:
+    nltk.download("stopwords")
 
 # Define text transformation function
 def transform_text(text):
     text = text.lower()
-    text = nltk.word_tokenize(text)
-
+    text = wordpunct_tokenize(text)
     y = []
     for i in text:
         if i.isalnum():
