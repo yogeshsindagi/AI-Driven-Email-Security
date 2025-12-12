@@ -6,13 +6,10 @@ AI-Driven Email Security is an intelligent system that helps manage emails by de
 
 Key Features
 
-Spam Detection: ML classifier using TF-IDF + traditional ML model.
-
-**Phishing URL Detection:** BERT-based model trained for phishing detection.
-
-**Priority Classification:** TF-IDF + ML model classifies emails as High, Medium, or Low priority.
-
-**Email Summarization:** T5-small (Text-to-Text Transfer Transformer) transformer generates concise email summaries.
+- **Spam Detection:** ML classifier using TF-IDF + traditional ML model.
+- **Phishing URL Detection:** BERT-based model trained for phishing detection.
+- **Priority Classification:** TF-IDF + ML model classifies emails as High, Medi-um, or Low priority.
+- **Email Summarization:** T5-small (Text-to-Text Transfer Transformer) transformer generates concise email summaries.
 
 How It Works
 
